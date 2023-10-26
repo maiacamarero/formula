@@ -13,7 +13,8 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction1() {
-        final Double result = 7d;
+        Function sum = new Sum(new Operand(1), new Operand(6));
+        final Double result = sum.evaluate();
 
         assertThat(result, equalTo(7d));
     }
@@ -23,7 +24,8 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction2() {
-        final Double result = 6d;
+        Function div = new Div(new Operand(12), new Operand(2));
+        final Double result = div.evaluate();
 
         assertThat(result, equalTo(6d));
     }
@@ -33,7 +35,9 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction3() {
-        final Double result = 13.5;
+        Function div = new Div(new Operand(9), new Operand(2));
+        Function mul = new Mul(div, new Operand(3));
+        final Double result = mul.evaluate();
 
         assertThat(result, equalTo(13.5d));
     }
@@ -43,7 +47,9 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction4() {
-        final Double result = 20.25;
+        Function base = new Div(new Operand(27), new Operand(6));
+        Function pow = new Pow(base, new Operand(2));
+        final Double result = pow.evaluate();
 
         assertThat(result, equalTo(20.25d));
     }
@@ -53,7 +59,8 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction5() {
-        final Double result = 6d;
+        Function sqrt = new Sqrt(new Operand(36));
+        final Double result = sqrt.evaluate();
 
         assertThat(result, equalTo(6d));
     }
@@ -63,7 +70,8 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction6() {
-        final Double result = 136d;
+        Function mod = new Mod(new Operand(136));
+        final Double result = mod.evaluate();
 
         assertThat(result, equalTo(136d));
     }
@@ -73,7 +81,8 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction7() {
-        final Double result = 136d;
+        Function mod = new Mod(new Operand(-136));
+        final Double result = mod.evaluate();
 
         assertThat(result, equalTo(136d));
     }
@@ -83,7 +92,9 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction8() {
-        final Double result = 0d;
+        Function sub = new Sub(new Operand(5), new Operand(5));
+        Function mul = new Mul(sub, new Operand(8));
+        final Double result = mul.evaluate();
 
         assertThat(result, equalTo(0d));
     }

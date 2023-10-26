@@ -1,0 +1,17 @@
+package edu.austral.ingsis.math
+
+class Operand(private val value : Double) : Function {
+    override fun evaluate(map: Map<String, Double>): Double {
+        return value
+    }
+
+    override fun print(): String {
+        return if (value % 1.0 == 0.0){
+            value.toInt().toString()
+        }else value.toString()
+    }
+
+    override fun listVariables(list: List<String>): List<String> {
+        return listOf()
+    }
+}
