@@ -11,7 +11,7 @@ class Operand(private val value : Double) : Function {
         }else value.toString()
     }
 
-    override fun listVariables(list: List<String>): List<String> {
+    override fun listVariables(): List<String> {
         return listOf()
     }
 }

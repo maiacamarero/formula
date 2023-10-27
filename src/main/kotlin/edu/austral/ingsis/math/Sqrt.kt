@@ -11,7 +11,7 @@ class Sqrt(private val function : Function) : Function {
         return "sqrt( " + function.print() + " )"
     }
 
-    override fun listVariables(list: List<String>): List<String> {
-        return function.listVariables(list)
+    override fun listVariables(): List<String> {
+        return function.listVariables()
     }
 }

@@ -13,7 +13,7 @@ class Pow(private val base : Function, private val exponent : Function) : Functi
         }else "(" + base.print() + ")" + " ^ " + exponent.print()
     }
 
-    override fun listVariables(list: List<String>): List<String> {
-        return (base.listVariables(list).asSequence() + exponent.listVariables(list).asSequence()).toList()
+    override fun listVariables(): List<String> {
+        return (base.listVariables().asSequence() + exponent.listVariables().asSequence()).toList()
     }
 }

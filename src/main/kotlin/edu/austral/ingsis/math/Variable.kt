@@ -11,9 +11,9 @@ class Variable(private val variable : String) : Function {
         return variable
     }
 
-    override fun listVariables(list: List<String>): List<String> {
+    override fun listVariables(): List<String> {
         val names: MutableList<String> = mutableListOf()
         names.add(variable)
-        return (list.asSequence() + names.asSequence()).toList()
+        return (names.asSequence()).toList()
     }
 }

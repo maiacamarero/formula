@@ -9,8 +9,8 @@ class Sum(private val a: Function, private val b: Function) : Function {
         return a.print() + " + " + b.print()
     }
 
-    override fun listVariables(list: List<String>): List<String> {
-        return (a.listVariables(list).asSequence() + b.listVariables(list).asSequence()).toList()
+    override fun listVariables(): List<String> {
+        return (a.listVariables().asSequence() + b.listVariables().asSequence()).toList()
     }
 
 

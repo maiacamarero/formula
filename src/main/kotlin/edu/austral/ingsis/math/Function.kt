@@ -6,5 +6,5 @@ interface Function {
         return evaluate(mapOf())
     }
     fun print() : String
-    fun listVariables(list: List<String>) : List<String>
+    fun listVariables() : List<String>
 }

@@ -11,7 +11,7 @@ class Mod(private val function: Function) : Function {
         return "|" + function.print() + "|"
     }
 
-    override fun listVariables(list: List<String>): List<String> {
-        return function.listVariables(list).toList()
+    override fun listVariables(): List<String> {
+        return function.listVariables().toList()
     }
 }
