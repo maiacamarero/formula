@@ -1,4 +1,4 @@
-package edu.austral.ingsis.math
+package edu.austral.ingsis.math.composite
 
 import kotlin.collections.mutableListOf as mutableListOf
 

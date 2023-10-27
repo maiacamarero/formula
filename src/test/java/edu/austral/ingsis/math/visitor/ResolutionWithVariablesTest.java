@@ -1,5 +1,8 @@
-package edu.austral.ingsis.math;
+package edu.austral.ingsis.math.visitor;
 
+import edu.austral.ingsis.math.visitor.visitable.*;
+import edu.austral.ingsis.math.visitor.visitor.EvaluateVisitor;
+import edu.austral.ingsis.math.visitor.visitor.Visitor;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -16,10 +19,10 @@ public class ResolutionWithVariablesTest {
      */
     @Test
     public void shouldResolveFunction1() {
-        Function sum = new Sum(new Operand(1), new Variable("x"));
         Map<String, Double> map = new HashMap<>();
         map.put("x", 3.0);
-        final Double result = sum.evaluate(map);
+        Visitor<Double> visitor = new EvaluateVisitor(map);
+        final Double result = visitor.visit(new Sum(new Operand(1), new Variable("x")));
 
         assertThat(result, equalTo(4d));
     }
@@ -29,10 +32,10 @@ public class ResolutionWithVariablesTest {
      */
     @Test
     public void shouldResolveFunction2() {
-        Function div = new Div(new Operand(12), new Variable("div"));
         Map<String, Double> map = new HashMap<>();
         map.put("div", 4.0);
-        final Double result = div.evaluate(map);
+        Visitor<Double> visitor = new EvaluateVisitor(map);
+        final Double result = visitor.visit(new Div(new Operand(12), new Variable("div")));
 
         assertThat(result, equalTo(3d));
     }
@@ -42,12 +45,12 @@ public class ResolutionWithVariablesTest {
      */
     @Test
     public void shouldResolveFunction3() {
-        Function div = new Div(new Operand(9), new Variable("x"));
-        Function mul = new Mul(div, new Variable("y"));
         Map<String, Double> map = new HashMap<>();
         map.put("x", 3.0);
         map.put("y", 4.0);
-        final Double result = mul.evaluate(map);
+        Visitor<Double> visitor = new EvaluateVisitor(map);
+        Div div = new Div(new Operand(9), new Variable("x"));
+        final Double result = visitor.visit(new Mul(div, new Variable("y")));
 
         assertThat(result, equalTo(12d));
     }
@@ -57,12 +60,12 @@ public class ResolutionWithVariablesTest {
      */
     @Test
     public void shouldResolveFunction4() {
-        Function div = new Div(new Operand(27), new Variable("a"));
-        Function pow = new Pow(div, new Variable("b"));
         Map<String, Double> map = new HashMap<>();
         map.put("a", 9.0);
         map.put("b", 3.0);
-        final Double result = pow.evaluate(map);
+        Visitor<Double> visitor = new EvaluateVisitor(map);
+        Div div = new Div(new Operand(27), new Variable("a"));
+        final Double result = visitor.visit(new Pow(div, new Variable("b")));
 
         assertThat(result, equalTo(27d));
     }
@@ -72,10 +75,10 @@ public class ResolutionWithVariablesTest {
      */
     @Test
     public void shouldResolveFunction5() {
-        Function sqrt = new Sqrt(new Variable("z"));
         Map<String, Double> map = new HashMap<>();
         map.put("z", 36.0);
-        final Double result = sqrt.evaluate(map);
+        Visitor<Double> visitor = new EvaluateVisitor(map);
+        final Double result = visitor.visit(new Sqrt(new Variable("z")));
 
         assertThat(result, equalTo(6d));
     }
@@ -85,11 +88,10 @@ public class ResolutionWithVariablesTest {
      */
     @Test
     public void shouldResolveFunction6() {
-        Function mod = new Mod(new Variable("value"));
-        Function sub = new Sub(mod, new Operand(8));
         Map<String, Double> map = new HashMap<>();
         map.put("value", 8.0);
-        final Double result = sub.evaluate(map);
+        Visitor<Double> visitor = new EvaluateVisitor(map);
+        final Double result = visitor.visit(new Sub(new Mod(new Variable("value")), new Operand(8)));
 
         assertThat(result, equalTo(0d));
     }
@@ -99,12 +101,10 @@ public class ResolutionWithVariablesTest {
      */
     @Test
     public void shouldResolveFunction7() {
-        Function mod = new Mod(new Variable("value"));
-        Function sub = new Sub(mod, new Operand(8));
         Map<String, Double> map = new HashMap<>();
         map.put("value", 8.0);
-        final Double result = sub.evaluate(map);
-
+        Visitor<Double> visitor = new EvaluateVisitor(map);
+        final Double result = visitor.visit(new Sub(new Mod(new Variable("value")), new Operand(8)));
         assertThat(result, equalTo(0d));
     }
 
@@ -113,11 +113,11 @@ public class ResolutionWithVariablesTest {
      */
     @Test
     public void shouldResolveFunction8() {
-        Function sub = new Sub(new Operand(5), new Variable("i"));
-        Function mul = new Mul(sub, new Operand(8));
         Map<String, Double> map = new HashMap<>();
         map.put("i", 2.0);
-        final Double result = mul.evaluate(map);
+        Visitor<Double> visitor = new EvaluateVisitor(map);
+        Sub sub = new Sub(new Operand(5), new Variable("i"));
+        final Double result = visitor.visit(new Mul(sub, new Operand(8)));
 
         assertThat(result, equalTo(24d));
     }

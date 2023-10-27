@@ -1,4 +1,4 @@
-package edu.austral.ingsis.math
+package edu.austral.ingsis.math.composite
 
 class Operand(private val value : Double) : Function {
     override fun evaluate(map: Map<String, Double>): Double {

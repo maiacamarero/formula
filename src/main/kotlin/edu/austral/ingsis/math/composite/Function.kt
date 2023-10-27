@@ -1,4 +1,4 @@
-package edu.austral.ingsis.math
+package edu.austral.ingsis.math.composite
 
 interface Function {
     fun evaluate(map: Map<String, Double>) : Double

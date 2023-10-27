@@ -1,5 +1,7 @@
-package edu.austral.ingsis.math;
-
+package edu.austral.ingsis.math.visitor;
+import edu.austral.ingsis.math.visitor.visitable.*;
+import edu.austral.ingsis.math.visitor.visitor.EvaluateVisitor;
+import edu.austral.ingsis.math.visitor.visitor.Visitor;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -7,14 +9,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class ResolutionTest {
+    private final Visitor<Double> visitor = new EvaluateVisitor();
 
     /**
      * Case 1 + 6
      */
     @Test
     public void shouldResolveSimpleFunction1() {
-        Function sum = new Sum(new Operand(1), new Operand(6));
-        final Double result = sum.evaluate();
+        final Double result = visitor.visit(new Sum(new Operand(1), new Operand(6)));
 
         assertThat(result, equalTo(7d));
     }
@@ -24,8 +26,7 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction2() {
-        Function div = new Div(new Operand(12), new Operand(2));
-        final Double result = div.evaluate();
+        final Double result = visitor.visit(new Div(new Operand(12), new Operand(2)));
 
         assertThat(result, equalTo(6d));
     }
@@ -35,9 +36,8 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction3() {
-        Function div = new Div(new Operand(9), new Operand(2));
-        Function mul = new Mul(div, new Operand(3));
-        final Double result = mul.evaluate();
+        Div div = new Div(new Operand(9), new Operand(2));
+        final Double result = visitor.visit(new Mul(div, new Operand(3)));
 
         assertThat(result, equalTo(13.5d));
     }
@@ -47,9 +47,8 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction4() {
-        Function base = new Div(new Operand(27), new Operand(6));
-        Function pow = new Pow(base, new Operand(2));
-        final Double result = pow.evaluate();
+        Div div = new Div(new Operand(27), new Operand(6));
+        final Double result = visitor.visit(new Pow(div, new Operand(2)));
 
         assertThat(result, equalTo(20.25d));
     }
@@ -59,8 +58,7 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction5() {
-        Function sqrt = new Sqrt(new Operand(36));
-        final Double result = sqrt.evaluate();
+        final Double result = visitor.visit(new Sqrt(new Operand(36)));
 
         assertThat(result, equalTo(6d));
     }
@@ -70,8 +68,7 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction6() {
-        Function mod = new Mod(new Operand(136));
-        final Double result = mod.evaluate();
+        final Double result = visitor.visit(new Mod(new Operand(136)));
 
         assertThat(result, equalTo(136d));
     }
@@ -81,8 +78,7 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction7() {
-        Function mod = new Mod(new Operand(-136));
-        final Double result = mod.evaluate();
+        final Double result = visitor.visit(new Mod(new Operand(-136)));
 
         assertThat(result, equalTo(136d));
     }
@@ -92,9 +88,8 @@ public class ResolutionTest {
      */
     @Test
     public void shouldResolveSimpleFunction8() {
-        Function sub = new Sub(new Operand(5), new Operand(5));
-        Function mul = new Mul(sub, new Operand(8));
-        final Double result = mul.evaluate();
+        Sub sub = new Sub(new Operand(5), new Operand(5));
+        final Double result = visitor.visit(new Mul(sub, new Operand(8)));
 
         assertThat(result, equalTo(0d));
     }

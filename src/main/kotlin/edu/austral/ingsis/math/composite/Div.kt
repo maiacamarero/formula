@@ -1,4 +1,4 @@
-package edu.austral.ingsis.math
+package edu.austral.ingsis.math.composite
 
 class Div(private val a : Function, private val b : Function) : Function {
     override fun evaluate(map: Map<String, Double>): Double {
